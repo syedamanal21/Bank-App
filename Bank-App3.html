@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXA BANK - Smart Banking</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #081b4b, #123b91, #4f7cff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #app {
+            width: 460px;
+            max-width: 100%;
+            background: #f8fbff;
+            border-radius: 30px;
+            padding: 22px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            width: 43px;
+            height: 43px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #2563eb, #6d5dfc);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .brand h1 {
+            font-size: 20px;
+            color: #102a68;
+            letter-spacing: 2px;
+        }
+
+        .brand p {
+            font-size: 9px;
+            color: #8290a8;
+            margin-top: 2px;
+        }
+
+        #themeBtn {
+            border: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 13px;
+            cursor: pointer;
+            background: #eaf0ff;
+            font-size: 18px;
+        }
+
+        .welcome {
+            color: #71809a;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        .card {
+            min-height: 205px;
+            border-radius: 24px;
+            padding: 23px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(
+                135deg,
+                #1d4ed8,
+                #5636c9 70%,
+                #7c3aed
+            );
+            box-shadow: 0 15px 30px rgba(44, 72, 180, 0.3);
+            margin-bottom: 18px;
+        }
+
+        .card:before,
+        .card:after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .card:before {
+            width: 180px;
+            height: 180px;
+            right: -70px;
+            top: -70px;
+        }
+
+        .card:after {
+            width: 130px;
+            height: 130px;
+            left: -55px;
+            bottom: -65px;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            opacity: 0.9;
+        }
+
+        .chip {
+            width: 38px;
+            height: 27px;
+            border-radius: 7px;
+            background: linear-gradient(135deg, #ffe082, #d6a63a);
+            margin: 18px 0 16px;
+        }
+
+        .balance-label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        #balance {
+            font-size: 33px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        #currency {
+            font-size: 14px;
+            font-weight: normal;
+            opacity: 0.8;
+        }
+
+        .card-bottom {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 18px;
+            font-size: 10px;
+            opacity: 0.8;
+        }
+
+        .quick-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 8px 0 10px;
+        }
+
+        .quick-title h3 {
+            color: #182b50;
+            font-size: 16px;
+        }
+
+        .quick-title span {
+            font-size: 11px;
+            color: #8190a8;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .quick {
+            border: 0;
+            background: white;
+            border-radius: 15px;
+            padding: 12px 5px;
+            cursor: pointer;
+            color: #34445f;
+            box-shadow: 0 5px 15px rgba(29, 54, 100, 0.07);
+            transition: 0.25s;
+        }
+
+        .quick:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 22px rgba(29, 54, 100, 0.13);
+        }
+
+        .quick .icon {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .quick small {
+            font-size: 10px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .mini {
+            background: white;
+            border-radius: 15px;
+            padding: 13px 8px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(29, 54, 100, 0.06);
+        }
+
+        .mini-icon {
+            font-size: 17px;
+        }
+
+        .mini p {
+            font-size: 10px;
+            color: #8794a8;
+            margin-top: 4px;
+        }
+
+        .mini strong {
+            display: block;
+            margin-top: 3px;
+            color: #24385e;
+            font-size: 12px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 17px;
+            margin-bottom: 14px;
+            box-shadow: 0 6px 18px rgba(29, 54, 100, 0.06);
+        }
+
+        .section h3 {
+            color: #1b2e52;
+            font-size: 15px;
+            margin-bottom: 12px;
+        }
+
+        .input-wrap {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .input-wrap span {
+            position: absolute;
+            left: 13px;
+            top: 13px;
+            color: #8a98ad;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            border: 2px solid #e5ebf5;
+            border-radius: 13px;
+            padding: 13px 13px 13px 35px;
+            outline: none;
+            font-size: 14px;
+            background: #fbfdff;
+        }
+
+        input:focus {
+            border-color: #4f72e8;
+            box-shadow: 0 0 0 4px rgba(79, 114, 232, 0.1);
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 9px;
+        }
+
+        .action {
+            border: 0;
+            padding: 13px;
+            border-radius: 13px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .credit {
+            background: #16a66a;
+        }
+
+        .debit {
+            background: #ef4f61;
+        }
+
+        .action:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.04);
+        }
+
+        #message {
+            min-height: 19px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 9px 0 0;
+        }
+
+        .goal-head {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 9px;
+            font-size: 12px;
+            color: #596b88;
+        }
+
+        .progress {
+            height: 9px;
+            background: #e9eef8;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        #progressBar {
+            height: 100%;
+            width: 45%;
+            border-radius: 20px;
+            background: linear-gradient(90deg, #2563eb, #7c3aed);
+            transition: 0.5s;
+        }
+
+        #goalText {
+            text-align: right;
+            font-size: 10px;
+            color: #8491a7;
+            margin-top: 6px;
+        }
+
+        #history-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        #history-title h3 {
+            margin: 0;
+        }
+
+        #clear-btn {
+            border: 0;
+            background: #fff0f2;
+            color: #e34255;
+            padding: 7px 9px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        #transactions {
+            max-height: 190px;
+            overflow-y: auto;
+        }
+
+        .transaction {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 11px 2px;
+            border-bottom: 1px solid #edf1f6;
+        }
+
+        .transaction-left {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .transaction-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .credit-icon {
+            background: #16a66a;
+        }
+
+        .debit-icon {
+            background: #ef4f61;
+        }
+
+        .transaction-name {
+            font-size: 12px;
+            font-weight: bold;
+            color: #253858;
+        }
+
+        .transaction-time {
+            font-size: 9px;
+            color: #9aa6b8;
+            margin-top: 3px;
+        }
+
+        .transaction-amount {
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .credit-text {
+            color: #16a66a;
+        }
+
+        .debit-text {
+            color: #ef4f61;
+        }
+
+        #empty-message {
+            text-align: center;
+            padding: 17px;
+            color: #9aa6b8;
+            font-size: 12px;
+        }
+
+        .notice {
+            display: none;
+            background: #eaf2ff;
+            color: #2754a4;
+            border: 1px solid #cbdcff;
+            border-radius: 14px;
+            padding: 11px;
+            font-size: 11px;
+            margin-bottom: 14px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #9aa6b8;
+            font-size: 9px;
+            padding: 5px;
+        }
+
+        body.dark {
+            background: linear-gradient(135deg, #020617, #0f172a, #172554);
+        }
+
+        body.dark #app {
+            background: #111827;
+        }
+
+        body.dark .section,
+        body.dark .mini,
+        body.dark .quick {
+            background: #1b2537;
+        }
+
+        body.dark .quick,
+        body.dark .section h3,
+        body.dark .quick-title h3,
+        body.dark .mini strong,
+        body.dark .transaction-name {
+            color: #e7eefc;
+        }
+
+        body.dark input {
+            background: #111827;
+            border-color: #334155;
+            color: white;
+        }
+
+        body.dark .quick-title span,
+        body.dark .mini p,
+        body.dark .footer {
+            color: #9aa8bd;
+        }
+
+        @media (max-width: 500px) {
+            body {
+                padding: 10px;
+            }
+
+            #app {
+                padding: 17px;
+                border-radius: 24px;
+            }
+
+            #balance {
+                font-size: 29px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <div class="topbar">
+
+            <div class="brand">
+                <div class="logo">N</div>
+
+                <div>
+                    <h1>NEXA BANK</h1>
+                    <p>SMART DIGITAL BANKING</p>
+                </div>
+            </div>
+
+            <button id="themeBtn" onclick="toggleTheme()">🌙</button>
+
+        </div>
+
+
+        <p class="welcome">
+            Good evening, Manal! 👋 Here's your financial overview.
+        </p>
+
+        <div id="notice" class="notice"></div>
+
+
+        <div class="card">
+
+            <div class="card-content">
+
+                <div class="card-top">
+                    <span>PERSONAL ACCOUNT</span>
+                    <span>VISA •••• 2048</span>
+                </div>
+
+                <div class="chip"></div>
+
+                <p class="balance-label">Available Balance</p>
+
+                <p id="balance">
+                    1,000
+                    <span id="currency">PKR</span>
+                </p>
+
+                <div class="card-bottom">
+                    <span>MANAL</span>
+                    <span>VALID THRU 12/29</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-title">
+            <h3>Quick Actions</h3>
+            <span>Tap to explore</span>
+        </div>
+
+
+        <div class="quick-actions">
+
+            <button class="quick"
+                onclick="showNotice('Transfer feature is ready! 💸')">
+
+                <span class="icon">💸</span>
+                <small>Transfer</small>
+
+            </button>
+
+
+            <button class="quick" onclick="quickDeposit()">
+
+                <span class="icon">➕</span>
+                <small>Deposit</small>
+
+            </button>
+
+
+            <button class="quick"
+                onclick="showNotice('Your account is protected with secure banking. 🔒')">
+
+                <span class="icon">🔐</span>
+                <small>Security</small>
+
+            </button>
+
+
+            <button class="quick"
+                onclick="showNotice('You have no new notifications. 🔔')">
+
+                <span class="icon">🔔</span>
+                <small>Alerts</small>
+
+            </button>
+
+        </div>
+
+
+        <div class="stats">
+
+            <div class="mini">
+                <div class="mini-icon">📈</div>
+                <p>Credits</p>
+                <strong id="creditTotal">0 PKR</strong>
+            </div>
+
+
+            <div class="mini">
+                <div class="mini-icon">📉</div>
+                <p>Debits</p>
+                <strong id="debitTotal">0 PKR</strong>
+            </div>
+
+
+            <div class="mini">
+                <div class="mini-icon">🧾</div>
+                <p>Activity</p>
+                <strong id="countTotal">0</strong>
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <h3>💳 Manage Money</h3>
+
+            <div class="input-wrap">
+                <span>₨</span>
+                <input
+                    type="number"
+                    id="amount"
+                    placeholder="Enter amount"
+                >
+            </div>
+
+
+            <div class="buttons">
+
+                <button
+                    class="action credit"
+                    id="credit-btn">
+                    ＋ Credit
+                </button>
+
+                <button
+                    class="action debit"
+                    id="debit-btn">
+                    − Debit
+                </button>
+
+            </div>
+
+            <p id="message"></p>
+
+        </div>
+
+
+        <div class="section">
+
+            <h3>🎯 Savings Goal</h3>
+
+            <div class="goal-head">
+                <span>New Laptop</span>
+                <strong>45,000 PKR</strong>
+            </div>
+
+            <div class="progress">
+                <div id="progressBar"></div>
+            </div>
+
+            <p id="goalText">
+                20,250 / 45,000 PKR
+            </p>
+
+        </div>
+
+
+        <div class="section">
+
+            <div id="history-title">
+
+                <h3>🧾 Recent Transactions</h3>
+
+                <button id="clear-btn">
+                    Clear
+                </button>
+
+            </div>
+
+
+            <div id="transactions">
+
+                <p id="empty-message">
+                    No transactions yet. Start by adding money! ✨
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <p class="footer">
+            🔒 NEXA Bank • Secure • Simple • Smart
+        </p>
+
+    </div>
+
+
+    <script>
+
+        let balance = 1000;
+        let credits = 0;
+        let debits = 0;
+        let activity = 0;
+        let savings = 20250;
+
+
+        const balanceDisplay =
+            document.getElementById("balance");
+
+        const amountInput =
+            document.getElementById("amount");
+
+        const message =
+            document.getElementById("message");
+
+        const transactions =
+            document.getElementById("transactions");
+
+
+        function updateBalance() {
+
+            balanceDisplay.innerHTML =
+                balance.toLocaleString() +
+                ' <span id="currency">PKR</span>';
+
+        }
+
+
+        function updateStats() {
+
+            document.getElementById("creditTotal")
+                .textContent =
+                credits.toLocaleString() + " PKR";
+
+            document.getElementById("debitTotal")
+                .textContent =
+                debits.toLocaleString() + " PKR";
+
+            document.getElementById("countTotal")
+                .textContent =
+                activity;
+
+
+            let percent =
+                Math.min((savings / 45000) * 100, 100);
+
+            document.getElementById("progressBar")
+                .style.width =
+                percent + "%";
+
+
+            document.getElementById("goalText")
+                .textContent =
+                savings.toLocaleString() +
+                " / 45,000 PKR";
+
+        }
+
+
+        function addTransaction(type, amount, name) {
+
+            const empty =
+                document.getElementById("empty-message");
+
+            if (empty) {
+                empty.remove();
+            }
+
+
+            const transaction =
+                document.createElement("div");
+
+            transaction.className =
+                "transaction";
+
+
+            const time =
+                new Date().toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                });
+
+
+            let iconClass =
+                type === "Credit"
+                    ? "credit-icon"
+                    : "debit-icon";
+
+            let icon =
+                type === "Credit"
+                    ? "↓"
+                    : "↑";
+
+            let textClass =
+                type === "Credit"
+                    ? "credit-text"
+                    : "debit-text";
+
+            let sign =
+                type === "Credit"
+                    ? "+"
+                    : "-";
+
+
+            transaction.innerHTML =
+
+                '<div class="transaction-left">' +
+
+                '<div class="transaction-icon ' +
+                iconClass +
+                '">' +
+                icon +
+                '</div>' +
+
+                '<div>' +
+
+                '<p class="transaction-name">' +
+                name +
+                '</p>' +
+
+                '<p class="transaction-time">' +
+                time +
+                '</p>' +
+
+                '</div>' +
+
+                '</div>' +
+
+                '<p class="transaction-amount ' +
+                textClass +
+                '">' +
+
+                sign +
+                amount.toLocaleString() +
+                " PKR" +
+
+                '</p>';
+
+
+            transactions.prepend(transaction);
+
+        }
+
+
+        function creditMoney(amount) {
+
+            balance += amount;
+            credits += amount;
+            activity++;
+
+            savings += Math.round(amount * 0.15);
+
+
+            updateBalance();
+            updateStats();
+
+            addTransaction(
+                "Credit",
+                amount,
+                "Money Credited"
+            );
+
+
+            message.textContent =
+                "Amount credited successfully! ✨";
+
+            message.style.color =
+                "#16a66a";
+
+            amountInput.value = "";
+
+        }
+
+
+        function debitMoney(amount) {
+
+            if (amount > balance) {
+
+                message.textContent =
+                    "Insufficient balance! ⚠️";
+
+                message.style.color =
+                    "#ef4f61";
+
+                return;
+            }
+
+
+            balance -= amount;
+            debits += amount;
+            activity++;
+
+
+            updateBalance();
+            updateStats();
+
+
+            addTransaction(
+                "Debit",
+                amount,
+                "Money Debited"
+            );
+
+
+            message.textContent =
+                "Amount debited successfully! ✓";
+
+            message.style.color =
+                "#16a66a";
+
+            amountInput.value = "";
+
+        }
+
+
+        document.getElementById("credit-btn").onclick =
+            () => {
+
+                let amount =
+                    Number(amountInput.value);
+
+
+                if (amount <= 0) {
+
+                    message.textContent =
+                        "Please enter a valid amount.";
+
+                    message.style.color =
+                        "#ef4f61";
+
+                    return;
+                }
+
+
+                creditMoney(amount);
+
+            };
+
+
+        document.getElementById("debit-btn").onclick =
+            () => {
+
+                let amount =
+                    Number(amountInput.value);
+
+
+                if (amount <= 0) {
+
+                    message.textContent =
+                        "Please enter a valid amount.";
+
+                    message.style.color =
+                        "#ef4f61";
+
+                    return;
+                }
+
+
+                debitMoney(amount);
+
+            };
+
+
+        function quickDeposit() {
+
+            creditMoney(500);
+
+            showNotice(
+                "Quick Deposit: 500 PKR added! 💰"
+            );
+
+        }
+
+
+        function showNotice(text) {
+
+            const n =
+                document.getElementById("notice");
+
+
+            n.textContent = text;
+            n.style.display = "block";
+
+
+            clearTimeout(window.nt);
+
+
+            window.nt =
+                setTimeout(() => {
+
+                    n.style.display = "none";
+
+                }, 2800);
+
+        }
+
+
+        function toggleTheme() {
+
+            document.body.classList.toggle("dark");
+
+
+            document.getElementById("themeBtn")
+                .textContent =
+                document.body.classList.contains("dark")
+                    ? "☀️"
+                    : "🌙";
+
+        }
+
+
+        document.getElementById("clear-btn").onclick =
+            () => {
+
+                transactions.innerHTML =
+                    '<p id="empty-message">' +
+                    'No transactions yet. Start by adding money! ✨' +
+                    '</p>';
+
+
+                credits = 0;
+                debits = 0;
+                activity = 0;
+
+
+                updateStats();
+
+
+                message.textContent =
+                    "Transaction history cleared.";
+
+                message.style.color =
+                    "#71809a";
+
+            };
+
+
+        amountInput.addEventListener(
+            "keydown",
+            e => {
+
+                if (e.key === "Enter") {
+
+                    document
+                        .getElementById("credit-btn")
+                        .click();
+
+                }
+
+            }
+        );
+
+
+        updateBalance();
+        updateStats();
+
+    </script>
+
+</body>
+
+</html>
+
